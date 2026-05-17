@@ -31,7 +31,7 @@ const Contact = () => {
           <div className="contact-box">
             <h4>Social</h4>
             <a
-              href="https://www.linkedin.com/in/antaranggaur/"
+              href="https://www.linkedin.com/in/antarang-gaur/"
               target="_blank"
               rel="noreferrer"
               data-cursor="disable"
@@ -40,7 +40,7 @@ const Contact = () => {
               LinkedIn <MdArrowOutward />
             </a>
             <a
-              href="https://github.com/antaranggaur"
+              href="https://github.com/megadave19"
               target="_blank"
               rel="noreferrer"
               data-cursor="disable"
