@@ -2,9 +2,11 @@
 
 Personal 3D portfolio of **Antarang Gaur** — AI Product Manager &amp; Growth Strategist. Built with React, TypeScript, Three.js, React Three Fiber, GSAP, and Rapier physics. The site is a scroll-driven single page with an animated 3D character, physics-driven tech-stack bubbles, a custom cursor, and smooth-scroll narrative transitions.
 
+> 🔗 **Live:** [antarangportfolio.vercel.app](https://antarangportfolio.vercel.app/)
+>
 > © 2026 Antarang Gaur. All rights reserved.
 
-![Portfolio Preview](public/images/ssi.png)
+![Portfolio Preview](public/images/portfolioss.png)
 
 ---
 
@@ -25,7 +27,7 @@ Personal 3D portfolio of **Antarang Gaur** — AI Product Manager &amp; Growth S
 
 - **Single-page narrative layout** that reads top-to-bottom like a story rather than a CV dump.
 - **3D character scene** rendered with React Three Fiber + Three.js, lit by a custom HDR environment.
-- **Physics-driven 3D tech-stack cluster** built on Rapier — every tool in my stack is a bouncing sphere you can poke with the cursor.
+- **Physics-driven 3D tech-stack cluster** built on Rapier — every tool in my stack is a bouncing sphere you can poke with the cursor (or finger, on mobile).
 - **Two-sided 3D logo bubbles** — each sphere shows the tool's logo on one hemisphere and the tool's name on the opposite hemisphere, generated dynamically from a `CanvasTexture`.
 - **GSAP-driven smooth scrolling** with `ScrollSmoother` + `ScrollTrigger` for activation thresholds and parallax.
 - **Custom cursor + hover-link affordances** that respond to interactive vs. non-interactive zones.
@@ -113,7 +115,7 @@ Personal 3D portfolio of **Antarang Gaur** — AI Product Manager &amp; Growth S
 | **Career** | Animated vertical timeline. Six roles from current (Product Owner, sovity) back to Transparency Market Research. |
 | **What I Do** | Two interactive cards: *Discovery &amp; Delivery* and *Growth &amp; GTM*, each with paragraph + skill-chip cloud. |
 | **Work** | Carousel of case studies. Anchored on the Sovity Sales Intelligence Platform. |
-| **Tech Stack** | 3D physics cluster of 15 spheres — each is one tool, logo on one side, name on the other. |
+| **Tech Stack** | 3D physics cluster of 17 spheres — each is one tool (Power BI, Amplitude, Postgres, Python, Jira, Confluence, Figma, GitHub, Salesforce, Claude, Hugging Face, Miro, Monday.com, n8n, Lovable, Supabase, Vercel) with logo on one side and name on the other. |
 | **Contact** | Email, India + Germany phone, LinkedIn, GitHub, Notion portfolio. Résumé download in the top-right. |
 
 ---
@@ -124,7 +126,7 @@ Personal 3D portfolio of **Antarang Gaur** — AI Product Manager &amp; Growth S
 Each sphere in the Tech Stack section is rendered with a dynamically generated `CanvasTexture` (1024 × 512). The canvas is split in half: the left half (maps to `u ≈ 0.25` on the sphere) carries the tool's logo, and the right half (maps to `u ≈ 0.75` — the opposite hemisphere) carries the tool's name in bold black, auto-fit to a single line. As the Rapier physics tumbles the cluster, you see the logo from one angle and the name from the other.
 
 ### Logo asset pipeline
-All 15 tech-stack logos are sourced from [Iconify](https://iconify.design/) (`logos/*`, plus `simple-icons/anthropic` and `devicon/lovable` for the gaps). Each downloaded SVG is wrapped programmatically into a 256 × 256 canvas with a solid white background and the logo inset to 160 × 160 — giving every sphere a uniform, brand-correct finish regardless of the original logo's aspect ratio.
+All 17 tech-stack logos are sourced from [Iconify](https://iconify.design/) (`logos/*`, plus `simple-icons/anthropic` and `devicon/lovable` for the gaps). Each downloaded SVG is wrapped programmatically into a 256 × 256 canvas with a solid white background and the logo inset to 160 × 160 — giving every sphere a uniform, brand-correct finish regardless of the original logo's aspect ratio.
 
 ### Career timeline alignment
 The date column is pinned to a 130 px right-aligned track via `flex: 0 0 130px; text-align: right; white-space: nowrap`. This stops the dates from drifting whenever a role title wraps to two lines.

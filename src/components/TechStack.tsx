@@ -29,6 +29,8 @@ const SKILLS: Skill[] = [
   { name: "Monday.com", logo: "/images/monday.svg" },
   { name: "n8n", logo: "/images/n8n.svg" },
   { name: "Lovable", logo: "/images/lovable.svg" },
+  { name: "Supabase", logo: "/images/supabase.svg" },
+  { name: "Vercel", logo: "/images/vercel.svg" },
 ];
 
 // Build a canvas texture per skill: white background, logo on one hemisphere
