@@ -180,6 +180,17 @@ function Pointer({ vec = new THREE.Vector3(), isActive }: PointerProps) {
 
 const TechStack = () => {
   const [isActive, setIsActive] = useState(false);
+  // Mobile detection — gates the GPU-expensive features (N8AO post-processing,
+  // dynamic shadows, HDR environment) so phones don't crash from running two
+  // WebGL contexts (this scene + the character scene) plus heavy effects.
+  const [isMobile, setIsMobile] = useState<boolean>(
+    typeof window !== "undefined" && window.innerWidth <= 1024
+  );
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth <= 1024);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -225,22 +236,26 @@ const TechStack = () => {
       <h2> My Techstack</h2>
 
       <Canvas
-        shadows
+        // Shadows + post-processing + HDR are desktop-only. On mobile we keep
+        // the same 17 physics spheres and the same logo+name textures so the
+        // visual signature is intact, but skip the GPU-heavy effects.
+        shadows={!isMobile}
         gl={{ alpha: true, stencil: false, depth: false, antialias: false }}
         // Cap DPR at 2 so the physics-driven cluster stays at full framerate
         // on high-DPR mobile devices without sacrificing perceived sharpness.
-        dpr={[1, 2]}
+        dpr={isMobile ? [1, 1.5] : [1, 2]}
         camera={{ position: [0, 0, 20], fov: 32.5, near: 1, far: 100 }}
         onCreated={(state) => (state.gl.toneMappingExposure = 1.5)}
         className="tech-canvas"
+        frameloop={isActive ? "always" : "demand"}
       >
-        <ambientLight intensity={1} />
+        <ambientLight intensity={isMobile ? 1.3 : 1} />
         <spotLight
           position={[20, 20, 25]}
           penumbra={1}
           angle={0.2}
           color="white"
-          castShadow
+          castShadow={!isMobile}
           shadow-mapSize={[512, 512]}
         />
         <directionalLight position={[0, 5, -4]} intensity={2} />
@@ -255,14 +270,18 @@ const TechStack = () => {
             />
           ))}
         </Physics>
-        <Environment
-          files="/models/char_enviorment.hdr"
-          environmentIntensity={0.5}
-          environmentRotation={[0, 4, 2]}
-        />
-        <EffectComposer enableNormalPass={false}>
-          <N8AO color="#0f002c" aoRadius={2} intensity={1.15} />
-        </EffectComposer>
+        {!isMobile && (
+          <Environment
+            files="/models/char_enviorment.hdr"
+            environmentIntensity={0.5}
+            environmentRotation={[0, 4, 2]}
+          />
+        )}
+        {!isMobile && (
+          <EffectComposer enableNormalPass={false}>
+            <N8AO color="#0f002c" aoRadius={2} intensity={1.15} />
+          </EffectComposer>
+        )}
       </Canvas>
     </div>
   );
