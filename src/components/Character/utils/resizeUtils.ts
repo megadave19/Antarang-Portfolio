@@ -13,6 +13,9 @@ export default function handleResize(
   const width = canvas3d.width;
   const height = canvas3d.height;
   renderer.setSize(width, height);
+  // Re-clamp DPR on orientation / window resize (mobile devices often change
+  // effective DPR when rotated or when the address bar hides/shows).
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   camera.aspect = width / height;
   camera.updateProjectionMatrix();
   const workTrigger = ScrollTrigger.getById("work");

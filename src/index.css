@@ -113,6 +113,23 @@ body {
   margin-bottom: -100px;
 }
 
+/* Let touch users scroll vertically even when the gesture starts on a 3D
+   canvas. The WebGL surface still receives pointer events for the physics
+   pointer, but the browser is allowed to pan the page. */
+.techstack .tech-canvas,
+.character-model canvas {
+  touch-action: pan-y !important;
+}
+
+/* The 3D character + tech-stack scenes are heavy. Hint to the browser that
+   they live on their own compositor layer so paint/transform on other
+   sections doesn't trigger re-rasterisation of these heavy canvases. */
+.techstack,
+.character-model {
+  will-change: transform;
+  contain: paint;
+}
+
 .techstack h2 {
   font-size: 80px;
   text-align: center;

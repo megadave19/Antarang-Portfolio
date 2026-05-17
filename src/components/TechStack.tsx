@@ -225,6 +225,9 @@ const TechStack = () => {
       <Canvas
         shadows
         gl={{ alpha: true, stencil: false, depth: false, antialias: false }}
+        // Cap DPR at 2 so the physics-driven cluster stays at full framerate
+        // on high-DPR mobile devices without sacrificing perceived sharpness.
+        dpr={[1, 2]}
         camera={{ position: [0, 0, 20], fov: 32.5, near: 1, far: 100 }}
         onCreated={(state) => (state.gl.toneMappingExposure = 1.5)}
         className="tech-canvas"
