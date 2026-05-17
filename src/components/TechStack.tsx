@@ -11,6 +11,24 @@ import {
   RapierRigidBody,
 } from "@react-three/rapier";
 
+// Module-level mobile detection — read once at first paint. The Canvas
+// texture cache, sphere geometry, and impulse strength are all sized for
+// the device class at load time. Resizing across the 1024 px boundary
+// without a reload won't update these (acceptable trade-off; nobody resizes
+// from phone to desktop mid-session).
+const IS_MOBILE =
+  typeof window !== "undefined" && window.innerWidth <= 1024;
+
+// Texture canvas size. 1024x512 desktop / 512x256 mobile = 4x less GPU memory
+// and bandwidth per sphere. At sphere render size on a phone the difference is
+// imperceptible; on a desktop it preserves the crisp look.
+const TEX_W = IS_MOBILE ? 512 : 1024;
+const TEX_H = IS_MOBILE ? 256 : 512;
+
+// Sphere geometry tessellation. 32x32 desktop / 16x16 mobile = ~75% fewer
+// triangles. At ~75px on-screen radius the silhouette difference is invisible.
+const SPHERE_SEGMENTS = IS_MOBILE ? 16 : 32;
+
 type Skill = { name: string; logo: string };
 
 const SKILLS: Skill[] = [
@@ -39,33 +57,47 @@ const SKILLS: Skill[] = [
 // to a single line so the user always sees the whole name in one glance.
 function makeSkillTexture(skill: Skill): THREE.CanvasTexture {
   const canvas = document.createElement("canvas");
-  canvas.width = 1024;
-  canvas.height = 512;
+  canvas.width = TEX_W;
+  canvas.height = TEX_H;
   const ctx = canvas.getContext("2d")!;
   ctx.fillStyle = "#ffffff";
-  ctx.fillRect(0, 0, 1024, 512);
+  ctx.fillRect(0, 0, TEX_W, TEX_H);
+
+  // All layout values scale relative to the per-half square (TEX_H = half-width).
+  const halfW = TEX_H; // the canvas is 2:1, so each "half" is TEX_H x TEX_H
+  const textCenterX = TEX_W * 0.75; // u ≈ 0.75 → text on the back hemisphere
+  const textCenterY = TEX_H / 2;
+  const logoCenterX = TEX_W * 0.25;
+  const logoCenterY = TEX_H / 2;
 
   ctx.fillStyle = "#0a0a0a";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   const fontFamily = `"Inter", "Helvetica Neue", Arial, sans-serif`;
-  let fontSize = 110;
-  const maxWidth = 460;
+  let fontSize = Math.round(halfW * 0.215); // 110 at desktop / 55 at mobile
+  const maxWidth = halfW * 0.9; // 460 at desktop / 230 at mobile
+  const minFont = Math.round(halfW * 0.055); // 28 at desktop / 14 at mobile
   ctx.font = `700 ${fontSize}px ${fontFamily}`;
-  while (ctx.measureText(skill.name).width > maxWidth && fontSize > 28) {
-    fontSize -= 4;
+  while (ctx.measureText(skill.name).width > maxWidth && fontSize > minFont) {
+    fontSize -= Math.max(2, Math.round(halfW * 0.008));
     ctx.font = `700 ${fontSize}px ${fontFamily}`;
   }
-  ctx.fillText(skill.name, 768, 256);
+  ctx.fillText(skill.name, textCenterX, textCenterY);
 
   const tex = new THREE.CanvasTexture(canvas);
   tex.colorSpace = THREE.SRGBColorSpace;
 
   const img = new Image();
   img.onload = () => {
-    const pad = 70;
-    const size = 512 - 2 * pad; // 372x372 logo region inside left half
-    ctx.drawImage(img, pad, pad, size, size);
+    // Logo occupies ~72% of the half-square, centred.
+    const logoSize = halfW * 0.72;
+    ctx.drawImage(
+      img,
+      logoCenterX - logoSize / 2,
+      logoCenterY - logoSize / 2,
+      logoSize,
+      logoSize
+    );
     tex.needsUpdate = true;
   };
   img.onerror = () => {
@@ -78,7 +110,11 @@ function makeSkillTexture(skill: Skill): THREE.CanvasTexture {
 
 const textures = SKILLS.map(makeSkillTexture);
 
-const sphereGeometry = new THREE.SphereGeometry(1, 32, 32);
+const sphereGeometry = new THREE.SphereGeometry(
+  1,
+  SPHERE_SEGMENTS,
+  SPHERE_SEGMENTS
+);
 
 // One sphere per skill — no duplicates.
 const SPHERE_SCALE = 0.75;

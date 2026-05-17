@@ -276,12 +276,40 @@
     gap: 30px;
   }
 
+  /* Allow info row to shrink + wrap inside the narrow container, and let
+     the long "Tools & Features" string break on word boundaries instead of
+     overflowing past the section padding. */
   .carousel-info {
     width: 100%;
+    min-width: 0;
+    flex-wrap: wrap;
+  }
+
+  .carousel-details {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .carousel-details h4,
+  .carousel-category,
+  .carousel-tools p {
+    max-width: 100%;
   }
 
   .carousel-image-wrapper {
     width: 100%;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .work-image img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    object-fit: cover;
   }
 
   .carousel-arrow {
@@ -321,11 +349,23 @@
     gap: 20px;
   }
 
+  /* Vertical padding only — horizontal padding is owned by .section-container.
+     Keeping it at 0 horizontally here ensures the carousel-track's
+     transform-based slide doesn't fight per-slide horizontal padding. */
   .carousel-slide {
     padding: 30px 0;
   }
 
   .work-image img {
     max-height: 250px;
+  }
+
+  /* Floating arrows over content can overlap the project text on very narrow
+     screens. Tuck them into translucent chips at the very edges so they read
+     as overlays, not in-flow elements. */
+  .carousel-arrow {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
   }
 }
