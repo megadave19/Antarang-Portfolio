@@ -278,19 +278,31 @@
     gap: 30px;
   }
 
-  /* Allow info row to shrink + wrap inside the narrow container, and let
-     the long "Tools & Features" string break on word boundaries instead of
-     overflowing past the section padding. */
+  /* Abandon flex-row for the project info on mobile. The default rule sets
+     'flex: 1' on .carousel-info which gives it flex-basis: 0%; combined with
+     a child that has long unbreakable text, mobile browsers' flex-shrink
+     algorithm reliably picks the wrong answer and lets the details column
+     overflow the container width.
+     Plain block layout removes the entire failure mode: number renders as a
+     block on its own line, details renders as a full-width block beneath it,
+     text inside wraps to the block's width naturally. */
   .carousel-info {
+    display: block;
     width: 100%;
     min-width: 0;
-    flex-wrap: wrap;
+  }
+
+  .carousel-number {
+    display: block;
+    width: auto;
+    margin-bottom: 12px;
   }
 
   .carousel-details {
-    flex: 1 1 auto;
-    min-width: 0;
+    display: block;
     width: 100%;
+    min-width: 0;
+    flex: none;
     overflow-wrap: anywhere;
     word-break: break-word;
   }
