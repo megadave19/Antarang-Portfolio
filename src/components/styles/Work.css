@@ -4,6 +4,8 @@
   z-index: 1;
   background-color: var(--backgroundColor);
   padding: 80px 0;
+  /* Safety net: no horizontal scroll can ever leak out of this section. */
+  overflow-x: hidden;
 }
 
 .work-section h2 {
@@ -293,10 +295,17 @@
     word-break: break-word;
   }
 
+  /* overflow-wrap / word-break are NOT inherited — apply on the actual
+     text-bearing elements so long strings like the comma-separated tools
+     list break inside words if no soft-wrap opportunity is available. */
   .carousel-details h4,
   .carousel-category,
+  .carousel-tools .tools-label,
   .carousel-tools p {
     max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    white-space: normal;
   }
 
   .carousel-image-wrapper {
