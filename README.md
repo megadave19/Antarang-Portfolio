@@ -1,6 +1,6 @@
 # Antarang Gaur — 3D Portfolio
 
-Personal 3D portfolio of **Antarang Gaur** — AI Product Manager &amp; Growth Strategist. Built with React, TypeScript, Three.js, React Three Fiber, GSAP, and Rapier physics. The site is a scroll-driven single page with an animated 3D character, physics-driven tech-stack bubbles, a custom cursor, and smooth-scroll narrative transitions.
+Personal 3D portfolio of **Antarang Gaur** — AI Product Manager &amp; Growth. Built with React, TypeScript, Three.js, React Three Fiber, GSAP, and Rapier physics. The site is a scroll-driven single page with an animated 3D character, physics-driven tech-stack bubbles, a custom cursor, and smooth-scroll narrative transitions.
 
 > 🔗 **Live:** [antarangportfolio.vercel.app](https://antarangportfolio.vercel.app/)
 >
