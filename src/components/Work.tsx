@@ -5,18 +5,18 @@ import { MdArrowBack, MdArrowForward } from "react-icons/md";
 
 const projects = [
   {
-    title: "Sales Intelligence Platform",
-    category: "0-to-1 internal B2B SaaS · sovity GmbH",
-    tools: "Product Discovery, LLM Workflows, HubSpot & Support Aggregation, Churn & Upsell Dashboards",
-    image: "/images/ssi.png",
-    link: "https://www.notion.so/Antarang-Gaur-356a2e9f37e281ff8fe9ef90ab8bd7a4",
-  },
-  {
     title: "Mendel",
     category: "Autonomous AI agent for dependency migration · personal project",
     tools: "Gemini LLM, Docker two-phase sandbox, Octokit, TypeScript compiler API, Next.js 15, Prisma, Zod",
     image: "/images/mendel.png",
     link: "https://misty-hat-c27.notion.site/Mendel-Autonomous-OSS-Maintenance-Agent-364a2e9f37e281be9ae0c38bce86fa32",
+  },
+  {
+    title: "Sales Intelligence Platform",
+    category: "0-to-1 internal B2B SaaS · sovity GmbH",
+    tools: "Product Discovery, LLM Workflows, HubSpot & Support Aggregation, Churn & Upsell Dashboards",
+    image: "/images/ssi.png",
+    link: "https://www.notion.so/Antarang-Gaur-356a2e9f37e281ff8fe9ef90ab8bd7a4",
   },
 ];
 
