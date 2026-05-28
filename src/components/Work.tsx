@@ -16,7 +16,7 @@ const projects = [
     category: "Autonomous AI agent for dependency migration · personal project",
     tools: "Gemini LLM, Docker two-phase sandbox, Octokit, TypeScript compiler API, Next.js 15, Prisma, Zod",
     image: "/images/mendel.png",
-    link: "https://github.com/megadave19/mendel",
+    link: "https://misty-hat-c27.notion.site/Mendel-Autonomous-OSS-Maintenance-Agent-364a2e9f37e281be9ae0c38bce86fa32",
   },
 ];
 
