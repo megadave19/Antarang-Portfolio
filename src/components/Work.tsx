@@ -11,6 +11,13 @@ const projects = [
     image: "/images/ssi.png",
     link: "https://www.notion.so/Antarang-Gaur-356a2e9f37e281ff8fe9ef90ab8bd7a4",
   },
+  {
+    title: "Mendel",
+    category: "Autonomous AI agent for dependency migration · personal project",
+    tools: "Gemini LLM, Docker two-phase sandbox, Octokit, TypeScript compiler API, Next.js 15, Prisma, Zod",
+    image: "/images/mendel.png",
+    link: "https://github.com/megadave19/mendel",
+  },
 ];
 
 const Work = () => {
