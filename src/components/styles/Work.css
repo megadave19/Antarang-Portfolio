@@ -93,8 +93,74 @@
   font-size: 16px;
 }
 
+.carousel-description {
+  font-weight: 200;
+  color: #c9c8cc;
+  margin: 14px 0 0;
+  font-size: 15px;
+  line-height: 1.55;
+  max-width: 100%;
+}
+
 .carousel-tools {
   margin-top: 16px;
+}
+
+.carousel-tool-row {
+  font-weight: 200;
+  color: #adacac;
+  margin: 8px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 100%;
+}
+
+.carousel-tool-row .tool-row-key {
+  display: inline-block;
+  color: var(--accentColor);
+  font-weight: 500;
+  margin-right: 8px;
+  white-space: nowrap;
+}
+
+.carousel-proof {
+  margin: 16px 0 0;
+  padding-left: 12px;
+  border-left: 2px solid var(--accentColor);
+  font-size: 13px;
+  font-weight: 300;
+  color: #9a99a0;
+  line-height: 1.5;
+  max-width: 100%;
+}
+
+.carousel-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.carousel-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 18px;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  color: #eae5ec;
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.carousel-cta-btn:hover {
+  border-color: var(--accentColor);
+  color: var(--accentColor);
+  background: rgba(94, 234, 212, 0.12);
+  box-shadow: 0 0 18px rgba(94, 234, 212, 0.15);
 }
 
 .carousel-tools .tools-label {
