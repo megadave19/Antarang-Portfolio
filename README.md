@@ -152,6 +152,39 @@ A pre-roll marquee shows the role (*AI Product Manager / Growth Strategist*), th
 
 ---
 
+## Tracking
+
+The site uses [Vercel Analytics](https://vercel.com/docs/analytics) — cookieless,
+GDPR-friendly, no consent banner required. Two custom conventions extend it:
+
+### UTM tags on every shared link
+Append UTM parameters to any link that leaves my hands so the dashboard groups
+visits by where they came from.
+
+```
+?utm_source=linkedin&utm_medium=dm&utm_campaign=<role_or_company>
+?utm_source=email&utm_medium=cold&utm_campaign=<role_or_company>
+?utm_source=resume_pdf&utm_medium=qr&utm_campaign=<event_name>
+```
+
+### Personalised links per recipient
+For high-value outreach, append `?u=<short-id>` so I know exactly which named
+person looked.
+
+```
+https://antarangportfolio.vercel.app/?u=jane-acme&utm_source=linkedin&utm_medium=dm
+```
+
+The `useVisitorTracking` hook in `src/hooks/useVisitorTracking.ts` reads
+these params on first mount and fires a single `visitor` custom event into
+Vercel Analytics (deduped per session). The Analytics dashboard then groups
+clicks by `id`, `source`, `medium`, `campaign`, and `content`.
+
+Only data **I** put in the URL gets logged — no fingerprinting, no IP
+lookup, no third-party identification.
+
+---
+
 ## Roadmap
 
 Tracked openly in the [Issues](../../issues) tab. Currently open:
