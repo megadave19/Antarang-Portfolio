@@ -50,6 +50,7 @@ const projects: Project[] = [
         label: "Case Study",
         url: "https://www.notion.so/Antarang-Gaur-356a2e9f37e281ff8fe9ef90ab8bd7a4",
       },
+      { label: "GitHub", url: "https://github.com/megadave19/ssi-portfolio-assets" },
     ],
   },
 ];
